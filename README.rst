@@ -40,7 +40,7 @@ Demo
 
 Here's a short demo:
 
-.. image:: https://asciinema.org/a/87557.png
+.. image:: /content/images/2016/09/onioff_demo.png
    :target: https://asciinema.org/a/87557?autoplay=1
 
 (For more demos click `here <https://asciinema.org/~k4m4>`_)
