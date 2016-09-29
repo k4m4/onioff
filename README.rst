@@ -9,7 +9,7 @@ Compatible with Python 2.6 & 2.7.
 
 Author: `Nikolaos Kamarinakis <mailto:nikolaskam@gmail.com>`_ (`nikolaskama.me <https://nikolaskama.me/>`_)
 
-.. image:: https://nikolaskama.me//content/images/2016/09/onioff_med.png
+.. image:: https://nikolaskama.me//content/images/2016/09/onioff_med-1.png
 
 Installation
 -------------
