@@ -16,12 +16,10 @@ Installation
 
 You can download ONIOFF by cloning the `Git Repo <https://github.com/k4m4/onioff>`_ and simply installing its requirements::
 
-::
-
     $ git clone https://github.com/k4m4/onioff.git
-
+    
     $ cd onioff
-
+    
     $ pip install -r requirements.txt
 
 Usage
