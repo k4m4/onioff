@@ -3,7 +3,8 @@ ONIOFF
 
 `ONIOFF <https://nikolaskama.me/onioffproject/>`_ - **Onion URL Inspector**
 
-A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). It takes given onion links and returns their current status along with the site's title.
+A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
+It takes given onion links and returns their current status along with the site's title.
 
 Compatible with Python 2.6 & 2.7.
 
