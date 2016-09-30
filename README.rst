@@ -1,7 +1,7 @@
 ONIOFF
 =======
 
-`ONIOFF <https://nikolaskama.me/onioffproject/>`_ - Onion URL Inspector
+`ONIOFF <https://nikolaskama.me/onioffproject/>`_ - **Onion URL Inspector**
 
 A simple tool - written in pure python - for inspecting Deep Web URLs (or onions).
 
