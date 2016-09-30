@@ -1,10 +1,5 @@
 ONIOFF
 =======
-.. image:: https://travis-ci.org/k4m4/onioff.svg?branch=master
-   ::target:: https://travis-ci.org/k4m4/onioff
-   
-.. image:: https://img.shields.io/badge/twitter-%40nikolaskama-blue.svg
-   ::target:: http://twitter.com/nikolaskama
 
 `ONIOFF <https://nikolaskama.me/onioffproject/>`_ - **Onion URL Inspector**
 
