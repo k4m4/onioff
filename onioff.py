@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from time import sleep
 
 BLUE, RED, WHITE, YELLOW, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[0m'
-print(RED + """
+sys.stdout.write(RED + """
  ██████╗ ███╗   ██╗██╗ ██████╗ ███████╗███████╗
 ██╔═══██╗████╗  ██║██║██╔═══██╗██╔════╝██╔════╝
 ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  █████╗
@@ -236,8 +236,7 @@ def main():
         print "\nComp/tional Time Elapsed:", (time.clock() - start)
 
     else:
-        flushPrint("\n[!] Use '-h' Or '--help' For Usage Options", False, False, True)
-        flushPrint("\n[!] Run 'man' Command To View Man Page\n", False, False, True)
+        flushPrint("\n\n[!] Use '-h' Or '--help' For Usage Options", False, False, True)
 
 if __name__ == '__main__':
 
