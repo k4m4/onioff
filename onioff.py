@@ -23,7 +23,7 @@ sys.stdout.write(RED + """
 """  + END + BLUE +
 '\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
 '\n' + 'Made With <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Version: {0}0.1{1}'.format(YELLOW, END).center(57))
+'\n' + 'Version: {0}0.1{1}'.format(YELLOW, END).center(57) + '\n')
 
 def flushPrint(msg, error=False, ext=False, heavy=False):
     if ext:
