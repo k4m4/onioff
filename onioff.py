@@ -81,7 +81,7 @@ def verifyTor(): # Verify Tor Is Running
     if pure_ip == tor_ip:
         flushPrint("\n[-] Unsuccessful Tor Connection", True)
        	flushPrint("\n[-] System Exit\n", True)
-       	raise SystemExit
+       	sys.exit(1)
     else:
         flushPrint("\n[+] Tor Running Normally") # PRINT VERSION
 
@@ -134,7 +134,7 @@ def checkOnion(onion): # Check Onion Status
     else:
        	flushPrint("\n[-] Connection Anonymity Lost", True)
        	flushPrint("\n[-] System Exit\n", True)
-       	raise SystemExit
+       	sys.exit(1)
 
 def readFile(file): # Read Onion File
     try:
@@ -155,7 +155,7 @@ def readFile(file): # Read Onion File
     except IOError:
        	flushPrint("\n[-] Invalid Onion File --> Please Enter A Valid File Path", True, True)
        	flushPrint("\n[-] System Exit\n", True)
-       	raise SystemExit
+       	sys.exit(1)
 
 def uniqueOutFile(checkFile): # Create A Unique Filename
     f = checkFile.split('.')
@@ -189,24 +189,24 @@ def main():
             verifyTor()
         except KeyboardInterrupt:
             print '\nHave A Great Day! :)'
-            raise SystemExit
+            sys.exit(1)
 
         except:
             flushPrint("\n[-] Tor Offline --> Please Make Sure Tor Is Running", True, True)
             flushPrint("\n[-] System Exit\n", True)
-            raise SystemExit
+            sys.exit(1)
 
         for onion in argv:
             if not onion.startswith('http') and not onion.startswith('https'):
                 flushPrint("\n[-] No Onion URL Found --> Please Enter A Valid URL", True, True)
                 flushPrint("\n[-] System Exit\n", True)
-                raise SystemExit
+                sys.exit(1)
             else:
                 try:
                     checkOnion(onion)
                 except KeyboardInterrupt:
                     print '\nHave A Great Day! :)'
-                    raise SystemExit
+                    sys.exit(1)
 
         if options.file != None:
             file = options.file
@@ -214,7 +214,7 @@ def main():
                 readFile(file)
             except KeyboardInterrupt:
                 print '\nHave A Great Day! :)'
-                raise SystemExit
+                sys.exit(1)
 
         outFile = uniqueOutFile(options.output_file)
         try:
@@ -225,10 +225,10 @@ def main():
         except IOError:
             flushPrint("\n[-] Invalid Path To Out File Given --> Please Enter a Valid Path", True, True)
             flushPrint("\n[-] System Exit\n", True)
-            raise SystemExit
+            sys.exit(1)
         except KeyboardInterrupt:
             print '\nHave A Great Day! :)'
-            raise SystemExit
+            sys.exit(1)
 
         flushPrint("\n[!] Onion Inspection Successfully Complete", False, False, True)
         saved_msg = "\n[!] Inspection Report Saved As --> " + str(outFile)
