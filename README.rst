@@ -46,6 +46,11 @@ Here's a short demo:
 
 (For more demos click `here <https://asciinema.org/~k4m4>`_)
 
+Developer
+-----------
+
+* Nikolaos Kamarinakis - `@nikolaskama <https://twitter.com/nikolaskama>`_
+
 License
 --------
 
@@ -55,4 +60,4 @@ ONIOFF is under the terms of the `MIT License <https://www.tldrlegal.com/l/mit>`
 
 
 For more information head over to the `official project page <https://nikolaskama.me/onioffproject/>`_.
-You can also go ahead and email me anytime at **nikolaskam{at}gmail{dot}com**.
+You can also go ahead and email me anytime at **nikolaskam{at}gmail{dot}com**. 
