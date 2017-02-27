@@ -16,8 +16,8 @@ Author: `Nikolaos Kamarinakis <mailto:nikolaskam@gmail.com>`_ (`nikolaskama.me <
     :target: https://saythanks.io/to/k4m4
 .. image:: https://img.shields.io/badge/made%20with-%3C3-red.svg
     :target: https://github.com/k4m4
-.. image:: https://img.shields.io/github/stars/k4m4/onioff.svg
-    :target: https://github.com/k4m4/onioff/stargazers
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://github.com/k4m4/onioff/blob/master/LICENSE
     
 .. image:: https://nikolaskama.me//content/images/2016/09/onioff_med-1.png
 
