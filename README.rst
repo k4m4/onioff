@@ -12,7 +12,7 @@ Author: `Nikolaos Kamarinakis <mailto:nikolaskam@gmail.com>`_ (`nikolaskama.me <
 
 .. image:: https://travis-ci.org/k4m4/onioff.svg?branch=master
     :target: https://travis-ci.org/k4m4/onioff
-.. image:: https://img.shields.io/badge/say%20thanks-%3A%29-blue.svg
+.. image:: https://img.shields.io/badge/say-thanks-ff69b4.svg
     :target: https://saythanks.io/to/k4m4
 .. image:: https://img.shields.io/badge/made%20with-%3C3-red.svg
     :target: https://github.com/k4m4
