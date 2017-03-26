@@ -1,4 +1,5 @@
 .. image:: https://nikolaskama.me/content/images/2017/01/onioff_small.png
+   :align: center
 
 ONIOFF
 =======
