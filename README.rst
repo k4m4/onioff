@@ -1,4 +1,4 @@
-.. image:: https://nikolaskama.me/content/images/2017/01/onioff_small.png
+.. image:: https://nikolaskama.me/content/images/2017/05/_1023323.png
    :align: center
 
 ONIOFF
