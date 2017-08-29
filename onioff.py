@@ -236,7 +236,7 @@ def main():
         print "\nComp/tional Time Elapsed:", (time.clock() - start)
 
     else:
-        flushPrint("\n\n[!] Use '-h' Or '--help' For Usage Options", False, False, True)
+        flushPrint("\n\n[!] Use '-h' or '--help' For Usage Options\n", False, False, True)
 
 if __name__ == '__main__':
 
