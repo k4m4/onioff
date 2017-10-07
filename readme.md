@@ -17,6 +17,10 @@
 
 ---
 
+<p align="center">✨Read my latest post: <a href="http://resources.infosecinstitute.com/inspecting-deep-web-links"><i>Inspecting Deep Web Links.✨</i></a></p>
+
+---
+
 <p align="center">
     <sub>Visit <a href="https://nikolaskama.me/onioffproject/"><code>nikolaskama.me/onioffproject</code></a> for more information. Check out my <a href="https://nikolaskama.me">blog</a> and follow me on <a href="https://twitter.com/nikolaskama">Twitter</a>.</sub>
 </p>
