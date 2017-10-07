@@ -3,7 +3,7 @@
 # onioff.py
 
 """
-Copyright (C) 2016 Nikolaos Kamarinakis (nikolaskam@gmail.com)
+Copyright (C) 2016-2017 Nikolaos Kamarinakis (nikolaskam@gmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/onioffproject)
 """
 
