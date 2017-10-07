@@ -3,11 +3,11 @@
 </h1>
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
-<br>
 
 - Compatible with Python 2.6 & 2.7.
-
 - Author: [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com) ([nikolaskama.me](https://nikolaskama.me/))
+
+<br>
 
 [![Build Status](https://travis-ci.org/k4m4/onioff.svg?branch=master)](https://travis-ci.org/k4m4/onioff)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://yourdonation.rocks)
