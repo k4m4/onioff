@@ -4,6 +4,8 @@
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
 
+<br>
+
 - Compatible with Python 2.6 & 2.7.
 
 - Author: [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com) ([nikolaskama.me](https://nikolaskama.me/))
@@ -39,7 +41,21 @@ You can download ONIOFF by cloning the [Git Repo](https://github.com/k4m4/onioff
 
 # Usage
 
-> Usage: `python onioff.py {onion} [options]`
+```
+Usage: python onioff.py {onion} [options]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -f FILE, --file=FILE  onion filename
+  -o OUTPUT_FILE, --output=OUTPUT_FILE
+                        output filename
+
+Examples:
+  python onioff.py http://xmh57jrzrnw6insl.onion/
+  python onioff.py -f ~/onions.txt -o ~/report.txt
+  python onioff.py https://facebookcorewwwi.onion/ -o ~/report.txt
+```
 
 To view all available options run:
 
