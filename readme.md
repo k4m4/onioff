@@ -17,7 +17,7 @@
 
 ---
 
-<p align="center">✨Read my latest post: <a href="http://resources.infosecinstitute.com/inspecting-deep-web-links"><i>Inspecting Deep Web Links.✨</i></a></p>
+<p align="center">✨Read my latest post: <a href="http://resources.infosecinstitute.com/inspecting-deep-web-links"><i>Inspecting Deep Web Links.</i></a>✨</p>
 
 ---
 
