@@ -20,7 +20,7 @@ Author: `Nikolaos Kamarinakis <mailto:nikolaskam@gmail.com>`_ (`nikolaskama.me <
 .. image:: https://img.shields.io/badge/made%20with-%3C3-red.svg
     :target: https://github.com/k4m4
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
-    :target: https://github.com/k4m4/dymerge/blob/master/LICENSE
+    :target: https://github.com/k4m4/onioff/blob/master/license.md
 
 -------------
 
@@ -68,7 +68,7 @@ License
 
 Copyright 2016 by `Nikolaos Kamarinakis <mailto:nikolaskam@gmail.com>`_. Some rights reserved.
 
-ONIOFF is under the terms of the `MIT License <https://www.tldrlegal.com/l/mit>`_, following all clarifications stated in the `license file <https://raw.githubusercontent.com/k4m4/onioff/master/LICENSE>`_.
+ONIOFF is under the terms of the `MIT License <https://www.tldrlegal.com/l/mit>`_, following all clarifications stated in the `license file <https://raw.githubusercontent.com/k4m4/onioff/master/license.md>`_.
 
 
 For more information head over to the `official project page <https://nikolaskama.me/onioffproject/>`_.

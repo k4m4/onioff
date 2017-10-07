@@ -23,7 +23,7 @@ sys.stdout.write(RED + """
 """  + END + BLUE +
 '\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
 '\n' + 'Made With <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Version: {0}0.1{1}'.format(YELLOW, END).center(57) + '\n')
+'\n' + 'Version: {0}2.0{1}'.format(YELLOW, END).center(57) + '\n')
 
 def flushPrint(msg, error=False, ext=False, heavy=False):
     if ext:
@@ -244,8 +244,7 @@ if __name__ == '__main__':
 
     optparse.OptionParser.format_epilog = lambda self, formatter: self.epilog
 
-    version = open('VERSION').read().replace('\n','')
-    info = 'Onioff ' + version + ' Nikolaos Kamarinakis (nikolaskama.me)'
+    info = 'Onioff v2.0 Nikolaos Kamarinakis (nikolaskama.me)'
 
     examples = ('\nExamples:\n'+
                 '  python onioff.py http://xmh57jrzrnw6insl.onion/\n'+
@@ -254,7 +253,7 @@ if __name__ == '__main__':
 
     parser = optparse.OptionParser(epilog=examples,
                                    usage='python %prog {onion} [options]',
-                                   prog='onioff.py', version=('Onioff ' + version))
+                                   prog='onioff.py', version=('ONIOFF v2.0'))
 
     parser.add_option('-f', '--file', action='store',
                       dest='file', help='onion filename')
