@@ -12,7 +12,7 @@
 
 [![Build Status](https://travis-ci.org/k4m4/onioff.svg?branch=master)](https://travis-ci.org/k4m4/onioff)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://yourdonation.rocks)
-[![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/k4m4/onioff/blob/master/license.md)
+[![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/k4m4/onioff/blob/master/license)
 [![Say Thanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/k4m4)
 [![GitHub Stars](https://img.shields.io/github/stars/k4m4/onioff.svg)](https://github.com/k4m4/onioff/stargazers)
 
@@ -85,7 +85,7 @@ Here's a short demo:
 
 Copyright 2016 by [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com). Some rights reserved.
 
-ONIOFF is under the terms of the [MIT License](https://www.tldrlegal.com/l/mit), following all clarifications stated in the [license file](https://raw.githubusercontent.com/k4m4/onioff/master/license.md).
+ONIOFF is under the terms of the [MIT License](https://www.tldrlegal.com/l/mit), following all clarifications stated in the [license file](https://raw.githubusercontent.com/k4m4/onioff/master/license).
 
 <br>
 
