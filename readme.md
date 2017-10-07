@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img width="450" src="https://nikolaskama.me/content/images/2017/05/_1023323.png" alt="ONIOFF Logo">
+    <img width="650" src="https://nikolaskama.me/content/images/2017/05/_1023323.png" alt="ONIOFF Logo">
 </h1>
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
@@ -80,7 +80,7 @@ Here's a short demo:
 
 # Developer
 
-- Nikolaos Kamarinakis (k4m4) - [@nikolaskama](https://twitter.com/nikolaskama)
+- **Nikolaos Kamarinakis** (k4m4) - [@nikolaskama](https://twitter.com/nikolaskama)
 
 <br>
 
