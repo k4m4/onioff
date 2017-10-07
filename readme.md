@@ -3,7 +3,6 @@
 </h1>
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
-<br>
 > It takes specified onion links and returns their current status along with the site's title.
 
 - Compatible with Python 2.6 & 2.7.
