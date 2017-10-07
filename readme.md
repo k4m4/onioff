@@ -3,7 +3,6 @@
 </h1>
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
-
 <br>
 
 - Compatible with Python 2.6 & 2.7.
@@ -83,7 +82,7 @@ Here's a short demo:
 
 # License
 
-Copyright 2016 by [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com). Some rights reserved.
+Copyright 2016-2017 by [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com). Some rights reserved.
 
 ONIOFF is under the terms of the [MIT License](https://www.tldrlegal.com/l/mit), following all clarifications stated in the [license file](https://raw.githubusercontent.com/k4m4/onioff/master/license).
 
