@@ -95,7 +95,6 @@ def checkOnion(onion): # Check Onion Status
     if check_ip != pure_ip:
         flushPrint('\n[+] Sending Request')
         try:
-            start = time.time()
             response = urllib2.urlopen(onion).getcode()
         except urllib2.URLError as e:
             response = 'INACTIVE (' + str(e.reason) + ')'
