@@ -95,6 +95,7 @@ def checkOnion(onion): # Check Onion Status
     if check_ip != pure_ip:
         flushPrint('\n[+] Sending Request')
         try:
+            start = time.time()
             response = urllib2.urlopen(onion).getcode()
         except urllib2.URLError as e:
             response = 'INACTIVE (' + str(e.reason) + ')'
@@ -220,7 +221,10 @@ def main():
         try:
             with open(outFile, 'w') as OutFile:
                 for k, v in gathered.items():
-                    OutFile.write('{0}, {1}'.format(k, v) + '\n')
+                    if 'Code200' in v[0]:
+                        OutFile.write('{0}, {1}'.format(k, v[1]) + '\n')
+                    else:
+                        OutFile.write('{0}, {1}'.format(k, v[0]) + '\n')
             OutFile.close()
         except IOError:
             flushPrint("\n[-] Invalid Path To Out File Given --> Please Enter a Valid Path", True, True)
