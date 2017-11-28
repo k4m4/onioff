@@ -30,36 +30,50 @@ def flushPrint(msg, error=False, ext=False, heavy=False):
         msg, msg_e = msg.split(' --> ')
         msg += ' --> '
 
-    if error:
-        for char in msg:
-            sleep(0.03)
-            sys.stdout.write(colored(char, 'red'))
-            sys.stdout.flush()
-        if ext:
-            for char in msg_e:
-                sleep(0.03)
-                sys.stdout.write(colored(char, 'red', attrs = ['bold']))
-                sys.stdout.flush()
-    elif heavy:
-        for char in msg:
-            sleep(0.03)
-            sys.stdout.write(colored(char, 'yellow'))
-            sys.stdout.flush()
-        if ext:
-            for char in msg_e:
-                sleep(0.03)
-                sys.stdout.write(colored(char, 'yellow', attrs = ['bold']))
-                sys.stdout.flush()
+    if options.fast:
+        if error:
+            sys.stdout.write(colored(msg, 'red'))
+            if ext:
+                sys.stdout.write(colored(msg_e, 'red', attrs = ['bold']))
+        elif heavy:
+            sys.stdout.write(colored(msg, 'yellow'))
+            if ext:
+                sys.stdout.write(colored(msg_e, 'yellow', attrs = ['bold']))
+        else:
+            sys.stdout.write(colored(msg, 'green'))
+            if ext:
+                sys.stdout.write(colored(msg_e, 'green', attrs = ['bold']))
     else:
-        for char in msg:
-            sleep(0.03)
-            sys.stdout.write(colored(char, 'green'))
-            sys.stdout.flush()
-        if ext:
-            for char in msg_e:
+        if error:
+            for char in msg:
                 sleep(0.03)
-                sys.stdout.write(colored(char, 'green', attrs = ['bold']))
+                sys.stdout.write(colored(char, 'red'))
                 sys.stdout.flush()
+            if ext:
+                for char in msg_e:
+                    sleep(0.03)
+                    sys.stdout.write(colored(char, 'red', attrs = ['bold']))
+                    sys.stdout.flush()
+        elif heavy:
+            for char in msg:
+                sleep(0.03)
+                sys.stdout.write(colored(char, 'yellow'))
+                sys.stdout.flush()
+            if ext:
+                for char in msg_e:
+                    sleep(0.03)
+                    sys.stdout.write(colored(char, 'yellow', attrs = ['bold']))
+                    sys.stdout.flush()
+        else:
+            for char in msg:
+                sleep(0.03)
+                sys.stdout.write(colored(char, 'green'))
+                sys.stdout.flush()
+            if ext:
+                for char in msg_e:
+                    sleep(0.03)
+                    sys.stdout.write(colored(char, 'green', attrs = ['bold']))
+                    sys.stdout.flush()
 
 def create_connection(address, timeout=None, source_address=None):
     sock = socks.socksocket()
@@ -222,10 +236,11 @@ def main():
         try:
             with open(outFile, 'w') as OutFile:
                 for k, v in gathered.items():
+                    # output format {some_link.onion} - {page_title}
                     if 'Code200' in v[0]:
-                        OutFile.write('{0}, {1}'.format(k, v[1]) + '\n')
+                        OutFile.write('{0} - {1}'.format(k, v[1]) + '\n')
                     else:
-                        OutFile.write('{0}, {1}'.format(k, v[0]) + '\n')
+                        OutFile.write('{0} - {1}'.format(k, v[0]) + '\n')
             OutFile.close()
         except IOError:
             flushPrint("\n[-] Invalid Path To Out File Given --> Please Enter a Valid Path", True, True)
@@ -266,6 +281,9 @@ if __name__ == '__main__':
     default = 'reports/onioff_{}'.format(unicode(datetime.datetime.now())[:-7].replace(' ', '_'))
     parser.add_option('-o', '--output', action='store', default=default,
                       dest='output_file', help='output filename')
+
+    parser.add_option('-F', '--fast', action='store_true', default=False,
+                      dest='fast', help='finish investigation asap')
 
     (options, argv) = parser.parse_args()
 
