@@ -7,7 +7,7 @@ Copyright (C) 2016-2017 Nikolaos Kamarinakis (nikolaskam@gmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/onioffproject)
 """
 
-import socket, socks, requests, sys, os, optparse, time, httplib, datetime
+import socket, socks, requests, sys, os, optparse, time, httplib, datetime, re
 from termcolor import colored
 from bs4 import BeautifulSoup
 from time import sleep
@@ -141,11 +141,13 @@ def readFile(file): # Read Onion File
        	with open(file, 'r') as myFile:
             if os.path.getsize(file) > 0:
                 onions = myFile.readlines()
-                for onion in onions:
+                for onion in re.findall(r'(?:https?://)?(?:www)?\S*?\.onion', '\n'.join(onions)):
                     onion = onion.replace('\n', '')
-                    if not onion.startswith('http') and not onion.startswith('https'):
+                    if not len(onion) > len('.onion'):
                         pass
                     else:
+                        if not onion.startswith('http') and not onion.startswith('https'):
+                            onion = 'http://'+str(onion)
                         checkOnion(onion)
             else:
                 flushPrint("\n[-] Dictionary Is Empty --> Please Enter A Valid File", True, True)
