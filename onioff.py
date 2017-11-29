@@ -7,7 +7,7 @@ Copyright (C) 2016-2017 Nikolaos Kamarinakis (nikolaskam@gmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/onioffproject)
 """
 
-import socket, socks, requests, sys, os, optparse, time, httplib, datetime, re, multiprocessing
+import socket, socks, requests, sys, os, optparse, time, httplib, datetime, re
 from termcolor import colored
 from bs4 import BeautifulSoup
 from time import sleep
@@ -164,25 +164,6 @@ def readFile(file): # Read Onion File
                         if not onion.startswith('http') and not onion.startswith('https'):
                             onion = 'http://'+str(onion)
                         checkOnion(onion)
-                        # try:
-                        #     p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
-                        #     p.start()
-                        #     p.join(int(options.max))
-                        #     if p.is_alive():
-                        #         global response
-                        #         if not 'response' in globals():
-                        #             p.terminate()
-                        #             response = 'INACTIVE (Took Too Long)'
-                        #             response2 = 'UNAVAILABLE (Onion Inactive)'
-                        #             gathered[onion] = response, response2
-                        #             flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
-                        #             pass
-                        # except KeyboardInterrupt:
-                        #     if p.is_alive():
-                        #         p.terminate()
-                        #         p.join()
-                        #     print '\nHave A Great Day! :)'
-                        #     sys.exit(1)
 
             else:
                 flushPrint("\n[-] Dictionary Is Empty --> Please Enter A Valid File", True, True)
@@ -233,9 +214,6 @@ def main():
             flushPrint("\n[-] System Exit\n", True)
             sys.exit(1)
 
-        global outFile
-        outFile = uniqueOutFile(options.output_file)
-
         for onion in argv:
             if not onion.startswith('http') and not onion.startswith('https'):
                 flushPrint("\n[-] No Onion URL Found --> Please Enter A Valid URL", True, True)
@@ -243,25 +221,6 @@ def main():
                 sys.exit(1)
             else:
                 checkOnion(onion)
-                # try:
-                #     p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
-                #     p.start()
-                #     p.join(int(options.max))
-                #     if p.is_alive():
-                #         global response
-                #         if not 'response' in globals():
-                #             p.terminate()
-                #             response = 'INACTIVE (Took Too Long)'
-                #             response2 = 'UNAVAILABLE (Onion Inactive)'
-                #             gathered[onion] = response, response2
-                #             flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
-                #             pass
-                # except KeyboardInterrupt:
-                #     if p.is_alive():
-                #         p.terminate()
-                #         p.join()
-                #     print '\nHave A Great Day! :)'
-                #     sys.exit(1)
 
         if options.file != None:
             file = options.file
@@ -272,6 +231,7 @@ def main():
                 sys.exit(1)
 
         try:
+            outFile = uniqueOutFile(options.output_file)
             with open(outFile, 'a') as OutFile:
                 for k, v in gathered.items():
                     # output format {some_link.onion} - {page_title}
@@ -318,9 +278,6 @@ if __name__ == '__main__':
     default = 'reports/onioff_{}'.format(unicode(datetime.datetime.now())[:-7].replace(' ', '_'))
     parser.add_option('-o', '--output', action='store', default=default,
                       dest='output_file', help='output filename')
-
-    # parser.add_option('-m', '--max', action='store', default=40,
-    #                   dest='max', help='maximum number of seconds to wait for each response (default: 40)')
 
     parser.add_option('-F', '--fast', action='store_true', default=False,
                       dest='fast', help='finish investigation asap')
