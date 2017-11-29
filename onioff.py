@@ -100,7 +100,7 @@ def verifyTor(): # Verify Tor Is Running
         flushPrint("\n[+] Tor Running Normally") # PRINT VERSION
 
 def checkOnion(onion): # Check Onion Status
-    global gathered, response
+    global gathered, response, outFile
 
     inspect_msg = "\n[!] Inspecting Onion --> " + str(onion)
     flushPrint(inspect_msg, False, True, True)
@@ -145,6 +145,7 @@ def checkOnion(onion): # Check Onion Status
 
         gathered[onion] = response, response2
 
+
     else:
        	flushPrint("\n[-] Connection Anonymity Lost", True)
        	flushPrint("\n[-] System Exit\n", True)
@@ -162,26 +163,26 @@ def readFile(file): # Read Onion File
                     else:
                         if not onion.startswith('http') and not onion.startswith('https'):
                             onion = 'http://'+str(onion)
-                        try:
-                            p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
-                            p.start()
-                            p.join(int(options.max))
-                            if p.is_alive():
-                                global response
-                                if not 'response' in globals():
-                                    p.terminate()
-                                    response = 'INACTIVE (Took Too Long)'
-                                    response2 = 'UNAVAILABLE (Onion Inactive)'
-                                    gathered[onion] = response, response2
-                                    flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
-                                    pass
-                        except KeyboardInterrupt:
-                            if p.is_alive():
-                                p.terminate()
-                            print '\nHave A Great Day! :)'
-                            sys.exit(1)
-                        finally:
-                            p.join()
+                        checkOnion(onion)
+                        # try:
+                        #     p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
+                        #     p.start()
+                        #     p.join(int(options.max))
+                        #     if p.is_alive():
+                        #         global response
+                        #         if not 'response' in globals():
+                        #             p.terminate()
+                        #             response = 'INACTIVE (Took Too Long)'
+                        #             response2 = 'UNAVAILABLE (Onion Inactive)'
+                        #             gathered[onion] = response, response2
+                        #             flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
+                        #             pass
+                        # except KeyboardInterrupt:
+                        #     if p.is_alive():
+                        #         p.terminate()
+                        #         p.join()
+                        #     print '\nHave A Great Day! :)'
+                        #     sys.exit(1)
 
             else:
                 flushPrint("\n[-] Dictionary Is Empty --> Please Enter A Valid File", True, True)
@@ -232,32 +233,35 @@ def main():
             flushPrint("\n[-] System Exit\n", True)
             sys.exit(1)
 
+        global outFile
+        outFile = uniqueOutFile(options.output_file)
+
         for onion in argv:
             if not onion.startswith('http') and not onion.startswith('https'):
                 flushPrint("\n[-] No Onion URL Found --> Please Enter A Valid URL", True, True)
                 flushPrint("\n[-] System Exit\n", True)
                 sys.exit(1)
             else:
-                try:
-                    p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
-                    p.start()
-                    p.join(int(options.max))
-                    if p.is_alive():
-                        global response
-                        if not 'response' in globals():
-                            p.terminate()
-                            response = 'INACTIVE (Took Too Long)'
-                            response2 = 'UNAVAILABLE (Onion Inactive)'
-                            gathered[onion] = response, response2
-                            flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
-                            pass
-                except KeyboardInterrupt:
-                    if p.is_alive():
-                        p.terminate()
-                    print '\nHave A Great Day! :)'
-                    sys.exit(1)
-                finally:
-                    p.join()
+                checkOnion(onion)
+                # try:
+                #     p = multiprocessing.Process(target=checkOnion, name="checkOnion", args=(onion,))
+                #     p.start()
+                #     p.join(int(options.max))
+                #     if p.is_alive():
+                #         global response
+                #         if not 'response' in globals():
+                #             p.terminate()
+                #             response = 'INACTIVE (Took Too Long)'
+                #             response2 = 'UNAVAILABLE (Onion Inactive)'
+                #             gathered[onion] = response, response2
+                #             flushPrint("\n[-] Onion Took Too Long to Respond --> ASSUMED INACTIVE", True, True)
+                #             pass
+                # except KeyboardInterrupt:
+                #     if p.is_alive():
+                #         p.terminate()
+                #         p.join()
+                #     print '\nHave A Great Day! :)'
+                #     sys.exit(1)
 
         if options.file != None:
             file = options.file
@@ -267,16 +271,14 @@ def main():
                 print '\nHave A Great Day! :)'
                 sys.exit(1)
 
-        outFile = uniqueOutFile(options.output_file)
         try:
-            with open(outFile, 'w') as OutFile:
+            with open(outFile, 'a') as OutFile:
                 for k, v in gathered.items():
                     # output format {some_link.onion} - {page_title}
                     if 'Code200' in v[0]:
                         OutFile.write('{0} - {1}'.format(k, v[1]) + '\n')
                     else:
                         OutFile.write('{0} - {1}'.format(k, v[0]) + '\n')
-            OutFile.close()
         except IOError:
             flushPrint("\n[-] Invalid Path To Out File Given --> Please Enter a Valid Path", True, True)
             flushPrint("\n[-] System Exit\n", True)
@@ -317,8 +319,8 @@ if __name__ == '__main__':
     parser.add_option('-o', '--output', action='store', default=default,
                       dest='output_file', help='output filename')
 
-    parser.add_option('-m', '--max', action='store', default=40,
-                      dest='max', help='maximum number of seconds to wait for each response (default: 40)')
+    # parser.add_option('-m', '--max', action='store', default=40,
+    #                   dest='max', help='maximum number of seconds to wait for each response (default: 40)')
 
     parser.add_option('-F', '--fast', action='store_true', default=False,
                       dest='fast', help='finish investigation asap')
