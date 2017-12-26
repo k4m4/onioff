@@ -202,6 +202,10 @@ def main():
 
     if len(sys.argv[1:]) > 0:
 
+        if len(sys.argv[1:]) == 1 and sys.argv[1] == '--fast':
+            flushPrint("\n\n[!] Use '-h' or '--help' For Usage Options\n", False, False, True)
+            raise SystemExit
+
         flushPrint("\n[+] Commencing Onion Inspection")
         try:
             verifyTor()
