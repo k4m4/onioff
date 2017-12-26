@@ -202,7 +202,7 @@ def main():
 
     if len(sys.argv[1:]) > 0:
 
-        if len(sys.argv[1:]) == 1 and (sys.argv[1] == '--fast' or sys.argv[1] == '--output'):
+        if (len(sys.argv[1:]) == 1 and sys.argv[1] == '--fast') or (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output'):
             flushPrint("\n\n[!] Use '-h' or '--help' For Usage Options\n", False, False, True)
             raise SystemExit
 
