@@ -19,7 +19,7 @@ sys.stdout.write(RED + """
 ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  █████╗
 ██║   ██║██║╚██╗██║██║██║   ██║██╔══╝  ██╔══╝
 ╚██████╔╝██║ ╚████║██║╚██████╔╝██║     ██║
- ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.1
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.2
 """  + END + BLUE +
 '\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
 '\n' + 'Made With <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
