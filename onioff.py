@@ -21,11 +21,11 @@ sys.stdout.write(RED + """
 ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  █████╗
 ██║   ██║██║╚██╗██║██║██║   ██║██╔══╝  ██╔══╝
 ╚██████╔╝██║ ╚████║██║╚██████╔╝██║     ██║
- ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.3
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v2.0
 """  + END + BLUE +
 '\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
 '\n' + 'Made with <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Version: {0}0.3{1}'.format(YELLOW, END).center(57) + '\n')
+'\n' + 'Version: {0}2.0{1}'.format(YELLOW, END).center(57) + '\n')
 
 
 def nowPrint(msg, error=False, ext=False, heavy=False):
