@@ -3,157 +3,121 @@
 # onioff.py
 
 """
-Copyright (C) 2016-2017 Nikolaos Kamarinakis (nikolaskam@gmail.com)
+Copyright (C) 2016-2018 Nikolaos Kamarinakis (nikolaskam@gmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/onioffproject)
 """
 
-import socket, socks, requests, sys, os, optparse, time, httplib, datetime, re
+import socket, socks, requests, urllib2, sys, os, time, optparse, datetime, re
 from termcolor import colored
 from bs4 import BeautifulSoup
-from time import sleep
+from threading import Thread
+from Queue import Queue
 
-BLUE, RED, WHITE, YELLOW, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[0m'
+
+BLUE, RED, WHITE, YELLOW, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[32m', '\033[0m'
 sys.stdout.write(RED + """
  ██████╗ ███╗   ██╗██╗ ██████╗ ███████╗███████╗
 ██╔═══██╗████╗  ██║██║██╔═══██╗██╔════╝██╔════╝
 ██║   ██║██╔██╗ ██║██║██║   ██║█████╗  █████╗
 ██║   ██║██║╚██╗██║██║██║   ██║██╔══╝  ██╔══╝
 ╚██████╔╝██║ ╚████║██║╚██████╔╝██║     ██║
- ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.2
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.3
 """  + END + BLUE +
-'\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Made With <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Version: {0}2.0{1}'.format(YELLOW, END).center(57) + '\n')
+'\n' + '{}Onion URL Inspector ({}ONIOFF{}){}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
+'\n' + 'Made with <3 by: {}Nikolaos Kamarinakis ({}k4m4{}){}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
+'\n' + 'Version: {}0.3{}'.format(YELLOW, END).center(57) + '\n')
 
-def flushPrint(msg, error=False, ext=False, heavy=False):
+
+def nowPrint(msg, error=False, ext=False, heavy=False):
     if ext:
         msg, msg_e = msg.split(' --> ')
         msg += ' --> '
 
-    if options.fast:
-        if error:
-            sys.stdout.write(colored(msg, 'red'))
-            if ext:
-                sys.stdout.write(colored(msg_e, 'red', attrs = ['bold']))
-        elif heavy:
-            sys.stdout.write(colored(msg, 'yellow'))
-            if ext:
-                sys.stdout.write(colored(msg_e, 'yellow', attrs = ['bold']))
-        else:
-            sys.stdout.write(colored(msg, 'green'))
-            if ext:
-                sys.stdout.write(colored(msg_e, 'green', attrs = ['bold']))
+    if error:
+        sys.stdout.write(colored(msg, 'red'))
+        if ext:
+            sys.stdout.write(colored(msg_e, 'red', attrs = ['bold']))
+    elif heavy:
+        sys.stdout.write(colored(msg, 'yellow'))
+        if ext:
+            sys.stdout.write(colored(msg_e, 'yellow', attrs = ['bold']))
     else:
-        if error:
-            for char in msg:
-                sleep(0.03)
-                sys.stdout.write(colored(char, 'red'))
-                sys.stdout.flush()
-            if ext:
-                for char in msg_e:
-                    sleep(0.03)
-                    sys.stdout.write(colored(char, 'red', attrs = ['bold']))
-                    sys.stdout.flush()
-        elif heavy:
-            for char in msg:
-                sleep(0.03)
-                sys.stdout.write(colored(char, 'yellow'))
-                sys.stdout.flush()
-            if ext:
-                for char in msg_e:
-                    sleep(0.03)
-                    sys.stdout.write(colored(char, 'yellow', attrs = ['bold']))
-                    sys.stdout.flush()
-        else:
-            for char in msg:
-                sleep(0.03)
-                sys.stdout.write(colored(char, 'green'))
-                sys.stdout.flush()
-            if ext:
-                for char in msg_e:
-                    sleep(0.03)
-                    sys.stdout.write(colored(char, 'green', attrs = ['bold']))
-                    sys.stdout.flush()
+        sys.stdout.write(colored(msg, 'green'))
+        if ext:
+            sys.stdout.write(colored(msg_e, 'green', attrs = ['bold']))
 
-def create_connection(address, timeout=None, source_address=None):
-    sock = socks.socksocket()
-    sock.connect(address)
-    return sock
+    time.sleep(0.1)
 
-def verifyTor(): # Verify Tor Is Running
+
+
+# Create TOR connection
+def connectTor():
     global pure_ip
-    ipcheck_url = 'http://checkip.amazonaws.com/'
+
+    ipcheck_url = 'https://locate.now.sh/ip'
     pure_ip = requests.get(ipcheck_url).text.replace('\n','')
+
     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9050)
     socket.socket = socks.socksocket
+    def create_connection(address, timeout=None, source_address=None):
+        sock = socks.socksocket()
+        sock.connect(address)
+        return sock
     socket.create_connection = create_connection
 
-    global urllib2
-    import urllib2
-
-    tor_ip = urllib2.urlopen(ipcheck_url).read().replace('\n','') # Tor IP
+    tor_ip = requests.get(ipcheck_url).text.replace('\n','')
     if pure_ip == tor_ip:
-        flushPrint("\n[-] Unsuccessful Tor Connection", True)
-       	flushPrint("\n[-] System Exit\n", True)
-       	sys.exit(1)
+        nowPrint("\n[-] Unsuccessful Tor connection", True)
+        nowPrint("\n[-] System exit", True)
+        os._exit(1)
     else:
-        flushPrint("\n[+] Tor Running Normally") # PRINT VERSION
+        nowPrint("\n[+] Tor running normally\n")
 
-def checkOnion(onion): # Check Onion Status
+
+
+# Perform onion status & title inspection
+def checkOnion(onion):
     global gathered, response, outFile
 
-    inspect_msg = "\n[!] Inspecting Onion --> " + str(onion)
-    flushPrint(inspect_msg, False, True, True)
-    ipcheck_url = 'http://checkip.amazonaws.com/'
-    check_ip = urllib2.urlopen(ipcheck_url).read().replace('\n','')
+    ipcheck_url = 'https://locate.now.sh/ip'
+    check_ip = requests.get(ipcheck_url).text.replace('\n','')
     if check_ip != pure_ip:
-        flushPrint('\n[+] Sending Request')
         try:
             response = urllib2.urlopen(onion).getcode()
-        except urllib2.URLError as e:
-            response = 'INACTIVE (' + str(e.reason) + ')'
-        except urllib2.HTTPError as e:
-            response = 'INACTIVE (' + str(e.code) + ')'
-        except httplib.HTTPException as e:
-            response = 'INACTIVE (HTTPException)'
-        except socks.SOCKS5Error as e:
-            response = 'INACTIVE (Host Unreachable)'
-        except Exception:
-            import traceback
-            response = 'INACTIVE (' + traceback.format_exc() + ')'
+        except Exception as e:
+            response = e
 
-       	if response == 200:
-            flushPrint("\n[+] Onion Up & Running --> ACTIVE", False, True)
-            response = 'ACTIVE (Code' + str(response) + ')'
-       	else:
-       	    flushPrint("\n[-] Onion Down --> INACTIVE", True, True)
-       	    response = 'INACTIVE'
-
-        if 'INACTIVE' not in response:
+        if response == 200:
             try:
-                flushPrint("\n[+] Retrieving Onion Title")
-                soup = BeautifulSoup(urllib2.urlopen(onion), 'html.parser')
-                response2 = soup.title.string
-                onion_title = "\n[+] Onion Title --> " + str(response2)
-                flushPrint(onion_title, False, True, False)
+                soup = BeautifulSoup(urllib2.urlopen(onion), 'lxml')
+                response2 = soup.title.string.encode('utf-8')
             except:
-                import traceback
                 response2 = 'UNAVAILABLE'
-                flushPrint("\n[-] Onion Title Is Unavailable", True)
+
+            show = ("[O] " + onion + " ({}ACTIVE{}) ==> '" + response2 + "'").format(GREEN, END)
+            gathered[onion] = 'ACTIVE', response2
         else:
+            response = str(response).strip().replace(':','')
             response2 = 'UNAVAILABLE (Onion Inactive)'
+            if len(response) > 2:
+                show = ("[O] " + onion + " ({}INACTIVE{}) - " + str(response).strip()).format(RED, END)
+            else:
+                show = ("[O] " + onion + " ({}INACTIVE{})").format(RED, END)
+            gathered[onion] = 'INACTIVE', response2
 
-        gathered[onion] = response, response2
-
+        return show
 
     else:
-       	flushPrint("\n[-] Connection Anonymity Lost", True)
-       	flushPrint("\n[-] System Exit\n", True)
-       	sys.exit(1)
+        nowPrint("\n[-] Lost Tor connection", True)
+        nowPrint("\n[-] System exit", True)
+        os._exit(1)
 
-def readFile(file): # Read Onion File
+
+
+# Extract onion URLs from file
+def readFile(file):
     try:
-       	with open(file, 'r') as myFile:
+        with open(file, 'r') as myFile:
             if os.path.getsize(file) > 0:
                 onions = myFile.readlines()
                 for onion in re.findall(r'(?:https?://)?(?:www)?\S*?\.onion', '\n'.join(onions)):
@@ -163,19 +127,25 @@ def readFile(file): # Read Onion File
                     else:
                         if not onion.startswith('http') and not onion.startswith('https'):
                             onion = 'http://'+str(onion)
-                        checkOnion(onion)
+                        q.put(onion)
 
             else:
-                flushPrint("\n[-] Dictionary Is Empty --> Please Enter A Valid File", True, True)
-                flushPrint("\n[-]System Exit\n", True)
+                nowPrint("\n[-] Onion file is empty --> Please enter a valid file", True)
+                nowPrint("\n[-] System exit", True)
+                os._exit(1)
 
-       	myFile.close()
+        q.join()
+        myFile.close()
+
     except IOError:
-       	flushPrint("\n[-] Invalid Onion File --> Please Enter A Valid File Path", True, True)
-       	flushPrint("\n[-] System Exit\n", True)
-       	sys.exit(1)
+        nowPrint("\n[-] Invalid onion file --> Please enter a valid file path", True)
+        nowPrint("\n[-] System exit", True)
+        os._exit(1)
 
-def uniqueOutFile(checkFile): # Create A Unique Filename
+
+
+# Unique output filename generation
+def uniqueOutFile(checkFile):
     f = checkFile.split('.')
     if len(f) < 2:
         checkFile += '.txt'
@@ -198,66 +168,83 @@ def uniqueOutFile(checkFile): # Create A Unique Filename
 
     return outFile
 
+
+
 def main():
 
     if len(sys.argv[1:]) > 0:
 
-        if (len(sys.argv[1:]) == 1 and sys.argv[1] == '--fast') or (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output') or (len(sys.argv[1:]) == 3 and ('--fast' in sys.argv and '--output' in sys.argv)):
-            flushPrint("\n\n[!] Invalid Options --> Use '-h' or '--help' For Usage Options\n", False, False, True)
-            raise SystemExit
+        if (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output') or (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output'):
+            nowPrint("\n[!] Invalid Options --> Use '-h' or '--help' for usage options\n", False, False, True)
+            os._exit(1)
 
-        flushPrint("\n[+] Commencing Onion Inspection")
+        nowPrint("\n[+] Commencing onion inspection")
         try:
-            verifyTor()
+            connectTor()
         except KeyboardInterrupt:
-            print '\nHave A Great Day! :)'
-            sys.exit(1)
-
+            print '\nHave a great day! :)'
+            os._exit(1)
         except:
-            flushPrint("\n[-] Tor Offline --> Please Make Sure Tor Is Running", True, True)
-            flushPrint("\n[-] System Exit\n", True)
-            sys.exit(1)
+            nowPrint("\n[-] Tor offline --> Please make sure Tor is running", True)
+            nowPrint("\n[-] System exit", True)
+            os._exit(1)
+
+
+        def inspect():
+            while True:
+                onion = q.get()
+                response = checkOnion(onion)
+                sys.stdout.write(response+'\n')
+                time.sleep(0.1)
+                q.task_done()
+
+        for i in range(concurrent):
+            t = Thread(target=inspect)
+            t.daemon = True
+            t.start()
 
         for onion in argv:
             if not onion.startswith('http') and not onion.startswith('https'):
-                flushPrint("\n[-] No Onion URL Found --> Please Enter A Valid URL", True, True)
-                flushPrint("\n[-] System Exit\n", True)
-                sys.exit(1)
+                nowPrint("\n[-] No onion URL found --> Please enter a valid URL", True)
+                nowPrint("\n[-] System exit", True)
+                os._exit(1)
             else:
-                checkOnion(onion)
+                q.put(onion)
+                q.join()
+
 
         if options.file != None:
             file = options.file
-            try:
-                readFile(file)
-            except KeyboardInterrupt:
-                print '\nHave A Great Day! :)'
-                sys.exit(1)
+            readFile(file)
+
 
         try:
             outFile = uniqueOutFile(options.output_file)
             with open(outFile, 'a') as OutFile:
                 for k, v in gathered.items():
                     # output format {some_link.onion} - {page_title}
-                    if 'Code200' in v[0]:
+                    if 'ACTIVE' in v[0]:
                         OutFile.write('{0} - {1}'.format(k, v[1]) + '\n')
                     else:
                         OutFile.write('{0} - {1}'.format(k, v[0]) + '\n')
         except IOError:
-            flushPrint("\n[-] Invalid Path To Out File Given --> Please Enter a Valid Path", True, True)
-            flushPrint("\n[-] System Exit\n", True)
-            sys.exit(1)
+            nowPrint("\n[-] Invalid path to out file given --> Please enter a valid path", True)
+            nowPrint("\n[-] System exit", True)
+            os._exit(1)
         except KeyboardInterrupt:
-            print '\nHave A Great Day! :)'
-            sys.exit(1)
+            print 'Have a great day! :)'
+            os._exit(1)
 
-        flushPrint("\n[!] Onion Inspection Successfully Complete", False, False, True)
-        saved_msg = "\n[!] Inspection Report Saved As --> " + str(outFile)
-        flushPrint(saved_msg, False, True, True)
-        print "\nComp/tional Time Elapsed:", (time.clock() - start)
+
+        nowPrint("[!] Onion inspection successfully complete", False, False, True)
+        saved_msg = "\n[!] Inspection report saved as --> " + str(outFile)
+        nowPrint(saved_msg, False, True, True)
+        print "\nComp/tional time elapsed:", (time.clock() - start)
 
     else:
-        flushPrint("\n\n[!] Use '-h' or '--help' For Usage Options\n", False, False, True)
+        nowPrint("\n[!] Use '-h' or '--help' for usage options\n", False, False, True)
+
+
 
 if __name__ == '__main__':
 
@@ -265,7 +252,7 @@ if __name__ == '__main__':
 
     optparse.OptionParser.format_epilog = lambda self, formatter: self.epilog
 
-    info = 'Onioff v2.0 Nikolaos Kamarinakis (nikolaskama.me)'
+    info = 'ONIOFF v3.0 Nikolaos Kamarinakis (nikolaskama.me)'
 
     examples = ('\nExamples:\n'+
                 '  python onioff.py http://xmh57jrzrnw6insl.onion/\n'+
@@ -277,17 +264,17 @@ if __name__ == '__main__':
                                    prog='onioff.py', version=('ONIOFF v2.0'))
 
     parser.add_option('-f', '--file', action='store',
-                      dest='file', help='onion filename')
+                      dest='file', help='name of onion file')
 
     default = 'reports/onioff_{}'.format(unicode(datetime.datetime.now())[:-7].replace(' ', '_'))
     parser.add_option('-o', '--output', action='store', default=default,
                       dest='output_file', help='output filename')
 
-    parser.add_option('-F', '--fast', action='store_true', default=False,
-                      dest='fast', help='finish investigation asap')
-
     (options, argv) = parser.parse_args()
 
     gathered = {}
+
+    concurrent = 200
+    q = Queue(concurrent * 2)
 
     main()

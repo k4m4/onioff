@@ -1,19 +1,26 @@
-<h1 align="center">
+<!-- <h1 align="center">
     <img width="650" src="https://nikolaskama.me/content/images/2017/05/_1023323.png" alt="ONIOFF Logo">
-</h1>
+</h1> -->
 
-> A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
-
-- Compatible with Python 2.6 & 2.7.
-- Author: [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com) ([nikolaskama.me](https://nikolaskama.me/))
-
-<br>
+```
+ ██████╗ ███╗   ██╗██╗ ██████╗ ███████╗███████╗
+██╔═══██╗████╗  ██║██║██╔═══██╗██╔════╝██╔════╝
+██║   ██║██╔██╗ ██║██║██║   ██║█████╗  █████╗
+██║   ██║██║╚██╗██║██║██║   ██║██╔══╝  ██╔══╝
+╚██████╔╝██║ ╚████║██║╚██████╔╝██║     ██║
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.3
+```
 
 [![Build Status](https://travis-ci.org/k4m4/onioff.svg?branch=master)](https://travis-ci.org/k4m4/onioff)
 [![Donations Badge](https://yourdonation.rocks/images/badge.svg)](https://yourdonation.rocks)
 [![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/k4m4/onioff/blob/master/license)
 [![Say Thanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/k4m4)
 [![GitHub Stars](https://img.shields.io/github/stars/k4m4/onioff.svg)](https://github.com/k4m4/onioff/stargazers)
+
+> A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
+
+- Compatible with Python 2.6 & 2.7.
+- Author: [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com) ([nikolaskama.me](https://nikolaskama.me/))
 
 ---
 
@@ -50,7 +57,7 @@ Usage: python onioff.py {onion} [options]
 Options:
   --version             show program's version number and exit
   -h, --help            show this help message and exit
-  -f FILE, --file=FILE  onion filename
+  -f FILE, --file=FILE  name of onion file
   -o OUTPUT_FILE, --output=OUTPUT_FILE
                         output filename
 
