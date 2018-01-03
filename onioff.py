@@ -67,7 +67,7 @@ def connectTor():
 
     tor_ip = requests.get(ipcheck_url).text.replace('\n','')
     if pure_ip == tor_ip:
-        nowPrint("\n[-] Unsuccessful Tor connection", True)
+        nowPrint("[-] Unsuccessful Tor connection", True)
         nowPrint("\n[-] System exit", True)
         os._exit(1)
     else:
@@ -108,7 +108,7 @@ def checkOnion(onion):
         return show
 
     else:
-        nowPrint("\n[-] Lost Tor connection", True)
+        nowPrint("[-] Lost Tor connection", True)
         nowPrint("\n[-] System exit", True)
         os._exit(1)
 
@@ -130,7 +130,7 @@ def readFile(file):
                         q.put(onion)
 
             else:
-                nowPrint("\n[-] Onion file is empty --> Please enter a valid file", True)
+                nowPrint("[-] Onion file is empty --> Please enter a valid file", True)
                 nowPrint("\n[-] System exit", True)
                 os._exit(1)
 
@@ -138,7 +138,7 @@ def readFile(file):
         myFile.close()
 
     except IOError:
-        nowPrint("\n[-] Invalid onion file --> Please enter a valid file path", True)
+        nowPrint("[-] Invalid onion file --> Please enter a valid file path", True)
         nowPrint("\n[-] System exit", True)
         os._exit(1)
 
@@ -185,7 +185,7 @@ def main():
             print '\nHave a great day! :)'
             os._exit(1)
         except:
-            nowPrint("\n[-] Tor offline --> Please make sure Tor is running", True)
+            nowPrint("[-] Tor offline --> Please make sure Tor is running", True)
             nowPrint("\n[-] System exit", True)
             os._exit(1)
 
@@ -205,7 +205,7 @@ def main():
 
         for onion in argv:
             if not onion.startswith('http') and not onion.startswith('https'):
-                nowPrint("\n[-] No onion URL found --> Please enter a valid URL", True)
+                nowPrint("[-] No onion URL found --> Please enter a valid URL", True)
                 nowPrint("\n[-] System exit", True)
                 os._exit(1)
             else:
@@ -228,7 +228,7 @@ def main():
                     else:
                         OutFile.write('{0} - {1}'.format(k, v[0]) + '\n')
         except IOError:
-            nowPrint("\n[-] Invalid path to out file given --> Please enter a valid path", True)
+            nowPrint("[-] Invalid path to out file given --> Please enter a valid path", True)
             nowPrint("\n[-] System exit", True)
             os._exit(1)
         except KeyboardInterrupt:
