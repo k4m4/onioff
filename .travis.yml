@@ -3,4 +3,4 @@ python:
     - "2.6"
     - "2.7"
 script:
-    - python -c "import onioff; import termcolor;"
+    - python -c "import onioff;"
