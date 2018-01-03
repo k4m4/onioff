@@ -23,9 +23,9 @@ sys.stdout.write(RED + """
 ╚██████╔╝██║ ╚████║██║╚██████╔╝██║     ██║
  ╚═════╝ ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝     ╚═╝ v0.3
 """  + END + BLUE +
-'\n' + '{}Onion URL Inspector ({}ONIOFF{}){}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Made with <3 by: {}Nikolaos Kamarinakis ({}k4m4{}){}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
-'\n' + 'Version: {}0.3{}'.format(YELLOW, END).center(57) + '\n')
+'\n' + '{0}Onion URL Inspector ({1}ONIOFF{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
+'\n' + 'Made with <3 by: {0}Nikolaos Kamarinakis ({1}k4m4{2}){3}'.format(YELLOW, RED, YELLOW, BLUE).center(67) +
+'\n' + 'Version: {0}0.3{1}'.format(YELLOW, END).center(57) + '\n')
 
 
 def nowPrint(msg, error=False, ext=False, heavy=False):
@@ -94,15 +94,15 @@ def checkOnion(onion):
             except:
                 response2 = 'UNAVAILABLE'
 
-            show = ("[O] " + onion + " ({}ACTIVE{}) ==> '" + response2 + "'").format(GREEN, END)
+            show = ("[O] " + onion + " ({0}ACTIVE{1}) ==> '" + response2 + "'").format(GREEN, END)
             gathered[onion] = 'ACTIVE', response2
         else:
             response = str(response).strip().replace(':','')
             response2 = 'UNAVAILABLE (Onion Inactive)'
             if len(response) > 2:
-                show = ("[O] " + onion + " ({}INACTIVE{}) - " + str(response).strip()).format(RED, END)
+                show = ("[O] " + onion + " ({0}INACTIVE{1}) - " + str(response).strip()).format(RED, END)
             else:
-                show = ("[O] " + onion + " ({}INACTIVE{})").format(RED, END)
+                show = ("[O] " + onion + " ({0}INACTIVE{1})").format(RED, END)
             gathered[onion] = 'INACTIVE', response2
 
         return show
