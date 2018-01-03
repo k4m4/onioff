@@ -1,4 +1,4 @@
 requests
-pysocks
 beautifulsoup4
+pysocks
 termcolor
