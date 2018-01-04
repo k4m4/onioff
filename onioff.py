@@ -103,7 +103,8 @@ def checkOnion(onion):
                 show = ("[O] " + onion + " ({0}INACTIVE{1}) - " + str(response).strip()).format(RED, END)
             else:
                 show = ("[O] " + onion + " ({0}INACTIVE{1})").format(RED, END)
-            gathered[onion] = 'INACTIVE', response2
+            if not options.active:
+                gathered[onion] = 'INACTIVE', response2
 
         return show
 
@@ -174,7 +175,8 @@ def main():
 
     if len(sys.argv[1:]) > 0:
 
-        if (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output') or (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output'):
+        if (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output') or (len(sys.argv[1:]) == 1 and sys.argv[1] == '--active') or \
+            (len(sys.argv[1:]) == 2 and sys.argv[1] == '--output'):
             nowPrint("\n[!] Invalid Options --> Use '-h' or '--help' for usage options\n", False, False, True)
             os._exit(1)
 
@@ -269,6 +271,9 @@ if __name__ == '__main__':
     default = 'reports/onioff_{}'.format(unicode(datetime.datetime.now())[:-7].replace(' ', '_'))
     parser.add_option('-o', '--output', action='store', default=default,
                       dest='output_file', help='output filename')
+
+    parser.add_option('-a', '--active', action='store_true', default=False,
+                      dest='active', help='save active onions only to output file')
 
     (options, argv) = parser.parse_args()
 
