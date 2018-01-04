@@ -60,10 +60,11 @@ Options:
   -f FILE, --file=FILE  name of onion file
   -o OUTPUT_FILE, --output=OUTPUT_FILE
                         output filename
+  -a, --active          log active onions only to output file
 
 Examples:
   python onioff.py http://xmh57jrzrnw6insl.onion/
-  python onioff.py -f ~/onions.txt -o ~/report.txt
+  python onioff.py -f ~/onions.txt -o ~/report.txt -a
   python onioff.py https://facebookcorewwwi.onion/ -o ~/report.txt
 ```
 
