@@ -273,7 +273,7 @@ if __name__ == '__main__':
                       dest='output_file', help='output filename')
 
     parser.add_option('-a', '--active', action='store_true', default=False,
-                      dest='active', help='save active onions only to output file')
+                      dest='active', help='log active onions only to output file')
 
     (options, argv) = parser.parse_args()
 
