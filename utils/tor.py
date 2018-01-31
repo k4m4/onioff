@@ -1,8 +1,9 @@
 from collections import namedtuple
 
 import requests
-from lxml.html import fromstring
 from requests.exceptions import ConnectionError, HTTPError
+
+from utils.html import get_html_element
 
 onion_status = namedtuple('onion_status', ['active', 'title'])
 
@@ -72,7 +73,6 @@ class Tor:
             title = ''
         else:
             active = True
-            tree = fromstring(response.content)
-            title = tree.findtext('.//title')
+            title = get_html_element(response.content, './/title')
 
         return onion_status(active, title)
