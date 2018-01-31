@@ -26,3 +26,4 @@ ENV/
 *.bak
 *.cfg
 reports/onioff*
+.pytest_cache
