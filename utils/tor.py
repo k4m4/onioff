@@ -1,6 +1,10 @@
+from collections import namedtuple
+
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import ConnectionError, HTTPError
+
+onion_status = namedtuple('onion_status', ['active', 'title'])
 
 
 class Tor:
@@ -64,9 +68,11 @@ class Tor:
         status = response.status_code
 
         if not status == 200:
-            pass
+            active = False
+            title = ''
         else:
+            active = True
             soup = BeautifulSoup(response.content, 'lxml')
-            onion_title = soup.title.string.encode('utf-8')
+            title = soup.title.string.encode('utf-8')
 
-        return onion_title
+        return onion_status(active, title)
