@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 import requests
-from bs4 import BeautifulSoup
+from lxml.html import fromstring
 from requests.exceptions import ConnectionError, HTTPError
 
 onion_status = namedtuple('onion_status', ['active', 'title'])
@@ -72,7 +72,7 @@ class Tor:
             title = ''
         else:
             active = True
-            soup = BeautifulSoup(response.content, 'lxml')
-            title = soup.title.string.encode('utf-8')
+            tree = fromstring(response.content)
+            title = tree.findtext('.//title')
 
         return onion_status(active, title)
