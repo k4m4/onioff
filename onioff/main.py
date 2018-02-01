@@ -104,6 +104,12 @@ def main(url, input_file, output, format, socks_port, timeout, workers, quite,
         url_list += url.split()
     if input_file:
         url_list += read_file(input_file)
+
+    invalid_urls = (i for i in url_list if not Onion.verify(i))
+    for item in invalid_urls:
+        logger.warn('Skipping invalid URL: {}'.format(item))
+        del url_list[url_list.index(item)]
+
     if not url_list:
         logger.error('No onion URL found --> Please enter a valid URL')
         logger.warn("System exit")

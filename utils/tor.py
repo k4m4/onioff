@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import re
 import sys
 from collections import namedtuple
 from concurrent.futures import as_completed
@@ -78,6 +79,11 @@ class Tor(object):
 class Onion(Tor):
     def __init__(self, **kwargs):
         super(Onion, self).__init__(**kwargs)
+
+    @staticmethod
+    def verify(onion):
+        regex = re.compile('(?:https?://)?(\S*\.onion)')
+        return True if regex.search(onion) else False
 
     def check_onions(self, onions, timeout=20, workers=5, progress=True):
         if not isinstance(onions, list):
