@@ -13,6 +13,7 @@ import os
 import click
 from logzero import LogFormatter, logger, setup_default_logger
 
+from onioff import VERSION
 from utils.tor import Onion
 
 log_format = '%(color)s[%(levelname)1.1s] %(message)s%(end_color)s'
@@ -31,7 +32,7 @@ def print_banner():
         yellow='\33[93m',
         green='\033[32m',
         end='\033[0m',
-        version='v3.0a')
+        version=VERSION)
 
     print("""{red}
  ██████╗ ███╗   ██╗██╗ ██████╗ ███████╗███████╗
@@ -133,7 +134,7 @@ def main(url, input_file, output, format, socks_port, timeout, workers, quite,
         if format == 'tsv':
             logger.debug('Writing result to {} as TSV.'.format(output))
             header = ['Onion', 'Status Code', 'Active', 'Title/Message']
-            with open(output, 'wb') as csvfile:
+            with open(output, 'w') as csvfile:
                 writer = csv.writer(csvfile, delimiter='\t')
                 writer.writerow(header)
                 for item in results:
@@ -149,7 +150,7 @@ def main(url, input_file, output, format, socks_port, timeout, workers, quite,
                     'active': item.active,
                     'title': item.title
                 })
-            with open(output, 'wb') as fp:
+            with open(output, 'w') as fp:
                 json.dump(obj, fp)
 
 
