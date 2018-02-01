@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+import sys
 from collections import namedtuple
 from concurrent.futures import as_completed
 
@@ -36,7 +39,7 @@ class Tor(object):
     def connect(self):
         def print_bootstrap_lines(line):
             if "Bootstrapped " in line:
-                print(line)
+                print(line, file=sys.stderr)
 
         self._tor_process = stem.process.launch_tor_with_config(
             config=self.config,
