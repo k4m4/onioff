@@ -108,6 +108,10 @@ class Onion(Tor):
                 exp_obj = onion_status(e.request.url, None, False, 'Not Found')
                 results.add(exp_obj)
                 continue
+            except requests.exceptions.SSLError as e:
+                exp_obj = onion_status(e.request.url, None, False, 'SSL Error')
+                results.add(exp_obj)
+                continue
 
             # Some server is responding, but with an error code
             if not status == 200:
