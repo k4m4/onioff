@@ -1,14 +1,17 @@
 from collections import namedtuple
+from concurrent.futures import as_completed
 
 import requests
-import stem.process
 
+import stem.process
+from requests_futures.sessions import FuturesSession
+from tqdm import tqdm
 from utils.html import get_html_element
 
 onion_status = namedtuple('onion_status', ['active', 'title'])
 
 
-class Tor:
+class Tor(object):
     def __init__(self, socks_port='7000', config=None):
         self._tor_process = None
         self._proxies = None
@@ -56,15 +59,50 @@ class Tor:
 
         return requests.get(url, params=params, proxies=self._proxies)
 
-    def check_onion(self, onion):
-        response = self.get(onion)
-        status = response.status_code
+    def session(self, async=True, max_workers=5):
+        if not self._tor_process:
+            self.connect()
 
-        if not status == 200:
-            active = False
-            title = ''
+        if async:
+            session = FuturesSession(max_workers=max_workers)
         else:
-            active = True
-            title = get_html_element(response.content, './/title')
+            session = requests.Session()
 
-        return onion_status(active, title)
+        session.proxies = self._proxies
+        return session
+
+
+class Onion(Tor):
+    def __init__(self, **kwargs):
+        super(Onion, self).__init__(**kwargs)
+
+    def check_onions(self, onions, workers=5, progress=True):
+        if not isinstance(onions, list):
+            if isinstance(onions, str):
+                onions = [onions]
+            else:
+                raise ValueError('Onions should be an instace of list object')
+
+        session = self.session(async=True, max_workers=workers)
+        futures = [session.get(url) for url in onions]
+
+        results = set()
+        iterable = as_completed(futures)
+        if progress:
+            iterable = tqdm(
+                iterable, total=len(onions), desc='Processing', ncols=100)
+
+        for item in iterable:
+            response = item.result()
+            status = response.status_code
+
+            if not status == 200:
+                active = False
+                title = ''
+            else:
+                active = True
+                title = get_html_element(response.content, './/title').strip()
+
+            results.add(onion_status(active, title))
+
+        return results
