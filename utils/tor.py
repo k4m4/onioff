@@ -2,13 +2,13 @@ from collections import namedtuple
 from concurrent.futures import as_completed
 
 import requests
-
 import stem.process
 from requests_futures.sessions import FuturesSession
 from tqdm import tqdm
+
 from utils.html import get_html_element
 
-onion_status = namedtuple('onion_status', ['active', 'title'])
+onion_status = namedtuple('onion_status', ['url', 'status', 'active', 'title'])
 
 
 class Tor(object):
@@ -76,7 +76,7 @@ class Onion(Tor):
     def __init__(self, **kwargs):
         super(Onion, self).__init__(**kwargs)
 
-    def check_onions(self, onions, workers=5, progress=True):
+    def check_onions(self, onions, timeout=20, workers=5, progress=True):
         if not isinstance(onions, list):
             if isinstance(onions, str):
                 onions = [onions]
@@ -84,7 +84,7 @@ class Onion(Tor):
                 raise ValueError('Onions should be an instace of list object')
 
         session = self.session(async=True, max_workers=workers)
-        futures = [session.get(url) for url in onions]
+        futures = [session.get(url, timeout=timeout) for url in onions]
 
         results = set()
         iterable = as_completed(futures)
@@ -93,9 +93,20 @@ class Onion(Tor):
                 iterable, total=len(onions), desc='Processing', ncols=100)
 
         for item in iterable:
-            response = item.result()
-            status = response.status_code
+            try:
+                response = item.result()
+                status = response.status_code
+            except requests.exceptions.ConnectTimeout as e:
+                exp_obj = onion_status(e.request.url, None, False, 'Timeout')
+                results.add(exp_obj)
+                continue
+            except requests.exceptions.ConnectionError as e:
+                # Onion URL is invalid and not reachable
+                exp_obj = onion_status(e.request.url, None, False, 'Not Found')
+                results.add(exp_obj)
+                continue
 
+            # Some server is responding, but with an error code
             if not status == 200:
                 active = False
                 title = ''
@@ -103,6 +114,6 @@ class Onion(Tor):
                 active = True
                 title = get_html_element(response.content, './/title').strip()
 
-            results.add(onion_status(active, title))
+            results.add(onion_status(response.url, status, active, title))
 
         return results
