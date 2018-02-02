@@ -187,7 +187,7 @@ def main():
             print '\nHave a great day! :)'
             os._exit(1)
         except:
-            nowPrint("[-] Tor offline --> Please make sure Tor is running", True)
+            nowPrint("\n[-] Tor offline --> Please make sure Tor is running", True)
             nowPrint("\n[-] System exit", True)
             os._exit(1)
 

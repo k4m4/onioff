@@ -13,7 +13,7 @@
 
 [![Build Status](https://travis-ci.org/k4m4/onioff.svg?branch=master)](https://travis-ci.org/k4m4/onioff)
 [![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/k4m4/onioff/blob/master/license)
-[![Compatibility](https://img.shields.io/badge/python-2.6%2C%202.7-brightgreen.svg)](https://github.com/k4m4/onioff)
+[![Compatibility](https://img.shields.io/badge/python-3-brightgreen.svg)](https://github.com/k4m4/onioff)
 [![Say Thanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/k4m4)
 [![GitHub Stars](https://img.shields.io/github/stars/k4m4/onioff.svg)](https://github.com/k4m4/onioff/stargazers)
 
