@@ -189,11 +189,7 @@ def main():
             os._exit(1)
         except:
             nowPrint("\n[-] Tor offline --> Please make sure Tor is running", True)
-<<<<<<< HEAD
-            nowPrint("\n[-] System exit", True)
-=======
             nowPrint("\n[-] Exiting...\n", True)
->>>>>>> 5ad2c1998e4a4db5d7d774e63c2e02e5f16da717
             os._exit(1)
 
 
