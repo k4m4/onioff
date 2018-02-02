@@ -19,7 +19,7 @@
 
 > A simple tool - written in pure python - for inspecting Deep Web URLs (or onions). 
 
-- Compatible with Python 2.6 & 2.7.
+- Compatible with Python 3🎉.
 - Author: [Nikolaos Kamarinakis](mailto:nikolaskam@gmail.com) ([nikolaskama.me](https://nikolaskama.me/))
 
 ---
@@ -41,8 +41,8 @@ You can download ONIOFF by cloning the [Git Repo](https://github.com/k4m4/onioff
 ```
 ~ ❯❯❯ git clone https://github.com/k4m4/onioff.git
 ~ ❯❯❯ cd onioff
-~/onioff ❯❯❯ pip install -r requirements.txt
-~/onioff ❯❯❯ python onioff.py
+~/onioff ❯❯❯ pip3 install -r requirements.txt
+~/onioff ❯❯❯ python3 onioff.py
 ```
 
 **NOTE**: In order for ONIOFF to work, Tor must be correctly configured and running.
@@ -52,7 +52,7 @@ You can download ONIOFF by cloning the [Git Repo](https://github.com/k4m4/onioff
 # Usage
 
 ```
-Usage: python onioff.py {onion} [options]
+Usage: python3 onioff.py {onion} [options]
 
 Options:
   --version             show program's version number and exit
@@ -63,15 +63,15 @@ Options:
   -a, --active          log active onions only to output file
 
 Examples:
-  python onioff.py http://xmh57jrzrnw6insl.onion/
-  python onioff.py -f ~/onions.txt -o ~/report.txt -a
-  python onioff.py https://facebookcorewwwi.onion/ -o ~/report.txt
+  python3 onioff.py http://xmh57jrzrnw6insl.onion/
+  python3 onioff.py -f ~/onions.txt -o ~/report.txt -a
+  python3 onioff.py https://facebookcorewwwi.onion/ -o ~/report.txt
 ```
 
 To view all available options run:
 
 ```
-~/onioff ❯❯❯ python onioff.py -h
+~/onioff ❯❯❯ python3 onioff.py -h
 ```
 
 <br>
