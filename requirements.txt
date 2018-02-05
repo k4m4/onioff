@@ -3,4 +3,3 @@ beautifulsoup4
 pysocks
 termcolor
 lxml
-pysocks
