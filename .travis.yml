@@ -6,4 +6,4 @@ python:
 install:
     - pip3 install -r requirements.txt
 script:
-    - python -c "import onioff;"
+    - python -c "import onioff;"https://github.com/oscarg933/onioff/pulse
