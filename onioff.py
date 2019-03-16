@@ -7,10 +7,11 @@ Copyright (C) 2016-2018 Nikolaos Kamarinakis (nikolaskam@gmail.com)
 See License at nikolaskama.me (https://nikolaskama.me/onioffproject)
 """
 
-import socket, socks, requests, sys, os, time, optparse, datetime, re
+import socket, socks, requests, sys, os, optparse, datetime, re
 from urllib.request import urlopen
 from termcolor import colored
 from bs4 import BeautifulSoup
+from time import process_time, sleep
 from threading import Thread
 import queue as queue
 
@@ -47,7 +48,7 @@ def nowPrint(msg, error=False, ext=False, heavy=False):
         if ext:
             sys.stdout.write(colored(msg_e, 'green', attrs = ['bold']))
 
-    time.sleep(0.1)
+    sleep(0.1)
 
 
 
@@ -198,7 +199,7 @@ def main():
                 onion = q.get()
                 response = checkOnion(onion)
                 sys.stdout.write(response+'\n')
-                time.sleep(0.1)
+                sleep(0.1)
                 q.task_done()
 
         for i in range(concurrent):
@@ -246,7 +247,7 @@ def main():
         nowPrint("[!] Onion inspection successfully complete", False, False, True)
         saved_msg = "\n[!] Inspection report saved as --> " + str(outFile)
         nowPrint(saved_msg, False, True, True)
-        print("\nComp/tional time elapsed:", (time.clock() - start))
+        print("\nComp/tional time elapsed:", (process_time() - start))
 
     else:
         nowPrint("\n[!] Use '-h' or '--help' for usage options\n", False, False, True)
@@ -255,7 +256,7 @@ def main():
 
 if __name__ == '__main__':
 
-    start = time.clock()
+    start = process_time()
 
     optparse.OptionParser.format_epilog = lambda self, formatter: self.epilog
 
