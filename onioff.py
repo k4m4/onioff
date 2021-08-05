@@ -56,7 +56,7 @@ def nowPrint(msg, error=False, ext=False, heavy=False):
 def connectTor():
     global pure_ip
 
-    ipcheck_url = 'https://locate.now.sh/ip'
+    ipcheck_url = 'https://ipinfo.io/ip'
     pure_ip = requests.get(ipcheck_url).text.replace('\n','')
 
     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9050)
@@ -81,7 +81,7 @@ def connectTor():
 def checkOnion(onion):
     global gathered, response, outFile
 
-    ipcheck_url = 'https://locate.now.sh/ip'
+    ipcheck_url = 'https://ipinfo.io/ip'
     check_ip = requests.get(ipcheck_url).text.replace('\n','')
     if check_ip != pure_ip:
         try:
